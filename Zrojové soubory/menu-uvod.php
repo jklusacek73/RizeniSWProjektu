@@ -7,6 +7,7 @@
           <a class="navbar-brand" href="index.php"><img src='obrazky/logo.png' height="40px" style="margin-top: -10px"></a>
         </div>
         <ul class="nav navbar-nav">
+        <li><a href="registrace.php">Registrace</a></li>
         </ul>
       </div>
       </nav> 
