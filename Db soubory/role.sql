@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Pát 27. říj 2017, 13:33
+-- Vytvořeno: Pát 27. říj 2017, 13:36
 -- Verze serveru: 5.7.20
 -- Verze PHP: 7.1.11
 
@@ -25,19 +25,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `uzivatel`
+-- Struktura tabulky `role`
 --
 
-CREATE TABLE `uzivatel` (
-  `id_uzivatele` int(11) NOT NULL,
-  `titul_pred` varchar(25) COLLATE utf8_czech_ci DEFAULT NULL,
-  `jmeno` varchar(40) COLLATE utf8_czech_ci NOT NULL,
-  `prijmeni` varchar(70) COLLATE utf8_czech_ci NOT NULL,
-  `titul_za` varchar(25) COLLATE utf8_czech_ci DEFAULT NULL,
-  `e-mail` varchar(110) COLLATE utf8_czech_ci NOT NULL,
-  `heslo` varchar(250) COLLATE utf8_czech_ci NOT NULL,
-  `instituce` varchar(110) COLLATE utf8_czech_ci NOT NULL,
-  `instituce_blizsi_urceni` varchar(150) COLLATE utf8_czech_ci DEFAULT NULL
+CREATE TABLE `role` (
+  `id_role` int(11) NOT NULL,
+  `nazev` varchar(80) COLLATE utf8_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
@@ -45,11 +38,11 @@ CREATE TABLE `uzivatel` (
 --
 
 --
--- Klíče pro tabulku `uzivatel`
+-- Klíče pro tabulku `role`
 --
-ALTER TABLE `uzivatel`
-  ADD PRIMARY KEY (`id_uzivatele`),
-  ADD UNIQUE KEY `id_uzivatele` (`id_uzivatele`);
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id_role`),
+  ADD UNIQUE KEY `id_role` (`id_role`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
