@@ -10,7 +10,7 @@
       <div class="col-sm-offset-1 col-sm-10 col-xs-12">
       <div class="col-sm-12">
       <?php
-     $mysqli = new mysqli("localhost", "krejci26", "Melinho58826", "krejci26");
+     $mysqli = new mysqli("localhost", "krejci26", "", "krejci26");
      $mysqli->set_charset("utf8");
      $pomocna = $mysqli->query("SELECT max(id_uzivatele) FROM uzivatel; ");
      $id_uzivatel = $pomocna + 1;
