@@ -1,6 +1,6 @@
 <?php
     session_start();
-     $mysqli = new mysqli("", "klusacek", "JiKl774358326", "klusacek");
+     $mysqli = new mysqli("", "", "", "");
      $mysqli->set_charset("utf8");
      $vysledek = $mysqli->query("SELECT max(id_uzivatele) AS 'maximum' FROM uzivatel; ");
      $data = $vysledek->fetch_array();
