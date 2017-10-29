@@ -5,7 +5,7 @@
       <div class="col-sm-offset-1 col-sm-10 col-xs-12">
       <div class="col-sm-12">
         <h3 class="hlavni-nadpis">Registrace do informačního systému</h2>
-      </div>                         
+      </div>
       <form class="form-horizontal" action="registrace_dotaz.php" method="post">
       <div class="col-sm-offset-2 col-sm-8">
       <div class="form-group">
@@ -57,14 +57,14 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-4 col-sm-8">
           <button type="submit" class="btn btn-default">Registrovat</button>
         </div>
       </div>
-      </div> 
+      </div>
       </form>
-    </div> 
     </div>
-    
-    
+    </div>
+
+
   <?php include 'paticka.php'?>
