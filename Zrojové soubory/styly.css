@@ -6,17 +6,17 @@ body{
   background-attachment:  fixed;
   background-size: 100% auto;
   height:100%
-}     
+}
 @media(max-width: 370px){
   body{
     background-size: auto 250px;
   }
-}   
+}
 .hlavni-nadpis{
   border-bottom: 1px solid #c1c1c1;
   margin-bottom: 15px;
   padding-bottom: 10px;
-}     
+}
 /*identifikatory*/
 #cele{
   height: 100%;
@@ -30,7 +30,7 @@ body{
   box-shadow: inset 0px -3px 4px 0px #9c9c9c;
 }
 #hlavni{
-    background-color: #f8f8f8; 
+    background-color: #f8f8f8;
     min-height: 95%;
 }
 #paticka{
@@ -67,5 +67,5 @@ body{
   text-shadow: 3px 0px 7px #ffffff;
 }
 .nepovinne{
-  color:  grey;
+  font-weight: normal;
 }

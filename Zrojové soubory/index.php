@@ -1,3 +1,4 @@
+<?php session_start() ?>
   <?php include 'hlavicka.php'?>
     <?php include 'menu-uvod.php'?>
   <?php include 'hlavni-foto.php'?>
@@ -6,6 +7,7 @@
       <div class="col-sm-12">
         <h3 class="hlavni-nadpis">Přihlášení do informačního systému</h2>
       </div>
+      <?php include 'zpravy.php' ?>
       <form class="form-horizontal">
       <div class="col-sm-offset-2 col-sm-8">
         <div class="form-group">
@@ -27,6 +29,6 @@
       </div>
       </div>
       </form>
-    </div> 
+    </div>
     </div>
   <?php include 'paticka.php'?>
