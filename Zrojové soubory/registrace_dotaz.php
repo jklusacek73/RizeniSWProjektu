@@ -1,7 +1,6 @@
 <?php
     session_start();
-     $mysqli = new mysqli("localhost", "", "", "");
-     $mysqli->set_charset("utf8");
+     require_once('connect.php');
      $vysledek = $mysqli->query("SELECT max(id_uzivatele) AS 'maximum' FROM uzivatel; ");
      $data = $vysledek->fetch_array();
      $id = $data['maximum'];
@@ -25,9 +24,11 @@
      }
      if($ulozit == true){
        $hesloSifra =  hash('sha512', $heslo);
+       $mysqli->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
        @$vysledek = $mysqli->query("INSERT INTO uzivatel VALUES ($id, '$_POST[titpred]', '$_POST[jmeno]', '$_POST[prijmeni]', '$_POST[titza]', '$_POST[email]', '$hesloSifra' , '$_POST[inst]', '$_POST[blur]');");
+       @$vysledek = $mysqli->query("INSERT INTO opravneni VALUES ($id,'1');");
+       $mysqli->commit();
        if($vysledek){
-       @$vysledek2 = $mysqli->query("INSERT INTO opravneni VALUES ($id,'4');");
          $_SESSION['typ'] = "success";
          $_SESSION['zprava'] =  "Registrace proběhla úspěšně. <b>Nyní se můžete přihlásit. </b>";
          header("Location:index.php");
