@@ -32,7 +32,7 @@ CREATE TABLE `uzivatel` (
   `jmeno` varchar(40) COLLATE utf8_czech_ci NOT NULL,
   `prijmeni` varchar(70) COLLATE utf8_czech_ci NOT NULL,
   `titul_za` varchar(25) COLLATE utf8_czech_ci DEFAULT NULL,
-  `e-mail` varchar(110) COLLATE utf8_czech_ci NOT NULL,
+  `e_mail` varchar(110) COLLATE utf8_czech_ci NOT NULL,
   `heslo` varchar(250) COLLATE utf8_czech_ci NOT NULL,
   `instituce` varchar(110) COLLATE utf8_czech_ci NOT NULL,
   `instituce_blizsi_urceni` varchar(150) COLLATE utf8_czech_ci DEFAULT NULL
@@ -42,7 +42,7 @@ CREATE TABLE `uzivatel` (
 -- Vypisuji data pro tabulku `uzivatel`
 --
 
-INSERT INTO `uzivatel` (`id_uzivatele`, `titul_pred`, `jmeno`, `prijmeni`, `titul_za`, `e-mail`, `heslo`, `instituce`, `instituce_blizsi_urceni`) VALUES
+INSERT INTO `uzivatel` (`id_uzivatele`, `titul_pred`, `jmeno`, `prijmeni`, `titul_za`, `e_mail`, `heslo`, `instituce`, `instituce_blizsi_urceni`) VALUES
 (1, '', 'Jiří', 'Klusáček', '', 'jirik.73@seznam.cz', '58a04acccf9ac1612c40d0050f323dfeff4e3c80a6e66e2df2f19b634192ada3b8a7348d978999071cc327a5e16c61ce8854bdd7b80f2d4f9364f81260038f35', 'Vysoká škola polytechnická Jihlava', '');
 
 --
@@ -55,7 +55,7 @@ INSERT INTO `uzivatel` (`id_uzivatele`, `titul_pred`, `jmeno`, `prijmeni`, `titu
 ALTER TABLE `uzivatel`
   ADD PRIMARY KEY (`id_uzivatele`),
   ADD UNIQUE KEY `id_uzivatele` (`id_uzivatele`),
-  ADD UNIQUE KEY `e-mail` (`e-mail`);
+  ADD UNIQUE KEY `e_mail` (`e_mail`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

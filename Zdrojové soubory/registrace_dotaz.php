@@ -1,5 +1,6 @@
 <?php
     session_start();
+    if(!isset($_SESSION['user_is_logged'])){
      require_once('connect.php');
      $vysledek = $mysqli->query("SELECT max(id_uzivatele) AS 'maximum' FROM uzivatel; ");
      $data = $vysledek->fetch_array();
@@ -48,31 +49,7 @@
      $_SESSION['inst'] = $_POST['inst'];
      $_SESSION['blur'] = $_POST['blur'];
      header("Location:registrace.php");
-
-     /*$heslo1 = $_POST['pswd1'];
-     $heslo2 = $_POST['pswd2'];
-     echo $heslo1 . "\n";
-     echo $heslo2 . "\n";
-    echo "<br />";
-     echo hash('sha512', $heslo1);
-     echo "\n";
-     echo hash('sha512', $heslo2);
-     if(preg_match('/\s/',$heslo1)){
-       echo  1;
-     }else{
-       echo 0;
-     }
-     if(strlen($heslo1) >= 8){
-       echo 1;
-     }else{
-       echo 0;
-     }*/
-     //@$vysledek = $mysqli->query("INSERT INTO uzivatel VALUES ($id, '$_POST[titpred]', '$_POST[jmeno]', '$_POST[prijmeni]', '$_POST[titza]', '$_POST[email]', '$_POST[pswd]', '$_POST[inst]', '$_POST[blur]');");
-   /*if($vysledek){
-        echo ("<p>Registrace byla úspěšná.</p>");
-     }else{
-        echo ("<p>Registrace nebyla úspěšná.</p>");
-     }
-     echo ("<a href=index.php><button type=button class=\"btn btn-primary\">Zpět na přihlašovací stránku.</button> </a>");
-          */
+   }else{
+     header("Location:uvod.php");
+   }
   ?>

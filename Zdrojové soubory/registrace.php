@@ -1,4 +1,7 @@
-<?php session_start() ?>
+<?php
+session_start();
+if(!isset($_SESSION['user_is_logged'])){
+?>
 <?php include 'hlavicka.php'?>
     <?php include 'menu-uvod.php'?>
   <?php include 'hlavni-foto.php'?>
@@ -73,6 +76,9 @@
       </form>
     </div>
     </div>
-
-
   <?php include 'paticka.php'?>
+  <?php
+}else{
+  header("Location:uvod.php");
+}
+  ?>
