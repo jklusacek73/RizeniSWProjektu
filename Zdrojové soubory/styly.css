@@ -31,7 +31,8 @@ body{
   box-shadow: inset 0px -3px 4px 0px #9c9c9c;
 }
 #hlavni{
-    background-color: #f8f8f8;
+    /*background-color: #f8f8f8;*/
+    background-color: #ffffff;
     min-height: 95%;
 }
 #paticka{
@@ -69,4 +70,7 @@ body{
 }
 .nepovinne{
   font-weight: normal;
+}
+.font{
+  font-size: 1em;
 }
