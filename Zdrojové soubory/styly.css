@@ -34,6 +34,7 @@ body{
     /*background-color: #f8f8f8;*/
     background-color: #ffffff;
     min-height: 95%;
+    padding-bottom: 20px;
 }
 #paticka{
   background-color: #f9a512;
@@ -73,4 +74,7 @@ body{
 }
 .font{
   font-size: 1em;
+}
+.tabulka>tbody>tr>td{
+  vertical-align: middle;
 }
