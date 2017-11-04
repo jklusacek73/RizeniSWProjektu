@@ -4,6 +4,10 @@
   @$vysledek = $mysqli->query("SELECT * FROM uzivatel WHERE e_mail = '$_POST[email]';");
   if($vysledek){
     $zaznam = $vysledek->fetch_array();
+    $pom = substr($zaznam['heslo'], 0, 3);
+    if($pom == '...'){
+      $zaznam['heslo'] = substr($zaznam['heslo'], 3);
+    }
     $zadaneHeslo = hash('sha512', $_POST['pwd']);
     if($zadaneHeslo == $zaznam['heslo']){
       $_SESSION["user_is_logged"] = true;
@@ -37,7 +41,12 @@
       if($zaznam['titul_za'] !== '' ) :
        $_SESSION['jmeno'] .= ', ' . $zaznam['titul_za'];
       endif;
-      header("Location:uvod.php");
+      if($pom == '...'){
+        $_SESSION['zprava'] .=  "<br /> <b>Kvůli zvýšení bezpečnosti si změňte heslo.</b>";
+        header("Location:zmena_hesla.php");
+      }else{
+        header("Location:uvod.php");
+      }
       exit;
     }
   }

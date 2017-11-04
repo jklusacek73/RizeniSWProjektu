@@ -69,7 +69,7 @@ if(!isset($_SESSION['user_is_logged'])){
       </div>
       <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
-          <input type="submit" class="btn btn-default" name="Registrovat" value"registrovat"></input>
+          <input type="submit" class="btn btn-default" name="Registrovat" value="Registrovat"></input>
         </div>
       </div>
       </div>
