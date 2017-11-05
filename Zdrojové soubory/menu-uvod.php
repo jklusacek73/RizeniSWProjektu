@@ -16,9 +16,21 @@
             <?php if(!isset($_SESSION['user_is_logged'])) : ?>
               <li><a href="registrace.php">Registrace</a></li>
             <?php endif ?>
+            <?php if(isset($_SESSION['user_is_logged'])) : ?>
+              <?php if($_SESSION['redaktor'] == true) : ?>
+                <li><a href="seznam_uzivatelu.php">Seznam uživatelů</a></li>
+              <?php endif ?>
+            <?php endif ?>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php if(isset($_SESSION['user_is_logged'])) : ?>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Nastavení <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="upravit_udaje.php">Upravit údaje</a></li>
+                    <li><a href="zmena_hesla.php">Změna hesla</a></li>
+                  </ul>
+              </li>
               <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Odhlásit</a></li>
             <?php endif ?>
           </ul>

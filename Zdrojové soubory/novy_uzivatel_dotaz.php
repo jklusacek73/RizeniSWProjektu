@@ -48,7 +48,7 @@
       mail($_POST['email'],'Nový uživatel v informačním systému časopisu Logos Polytechnikos',$message,$headers);
       $_SESSION['typ'] = "success";
       $_SESSION['zprava'] = "Registrace nového uživatele proběhla úspěšně.";
-      header("Location:uvod.php");
+      header("Location:seznam_uzivatelu.php");
       exit;
     }else{
       $_SESSION['typ'] = "danger";

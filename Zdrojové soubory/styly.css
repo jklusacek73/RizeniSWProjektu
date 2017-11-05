@@ -62,6 +62,12 @@ body{
 #paticka a:hover{
   color: #7f0000;
 }
+#pagination{
+  text-align: center;
+}
+#popisek{
+  margin-top: 8px;
+}
 .nazev-nadpis{
   margin-left: 9%;
   margin-top: -5px;

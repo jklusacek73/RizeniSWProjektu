@@ -1,9 +1,8 @@
 <?php
 session_start();
 require_once('connect.php');
-if((isset($_SESSION['user_is_logged'])) && ($_SESSION['redaktor'] == true)){
-  if(isset($_GET['id'])){
-    @$vysledek = $mysqli->query("SELECT * FROM uzivatel WHERE id_uzivatele = " . $_GET['id'] . ";");
+if(isset($_SESSION['user_is_logged'])){
+    @$vysledek = $mysqli->query("SELECT * FROM uzivatel WHERE id_uzivatele = " . $_SESSION['id_uzivatele'] . ";");
     $uzivatel = $vysledek->fetch_array();
     if($uzivatel['e_mail'] !== null){
       $_SESSION['user_titpred'] = $uzivatel['titul_pred'];
@@ -13,26 +12,8 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['redaktor'] == true)){
       $_SESSION['user_email'] = $uzivatel['e_mail'];
       $_SESSION['user_inst'] = $uzivatel['instituce'];
       $_SESSION['user_blur'] = $uzivatel['instituce_blizsi_urceni'];
-      @$vysledek2 = $mysqli->query("SELECT id_role, nazev FROM role NATURAL JOIN opravneni WHERE id_uzivatele = " . $_GET['id'] . " ORDER BY id_role;");
-      while ($role = $vysledek2->fetch_array()) {
-          switch($role['id_role']){
-            case 1:
-              $_SESSION['user_autor'] = true;
-              break;
-            case 2:
-              $_SESSION['user_redaktor'] = true;
-              break;
-            case 3:
-              $_SESSION['user_recenzent'] = true;
-              break;
-            case 4:
-              $_SESSION['user_editor'] = true;
-              break;
-          }
-      }
-    }else{
-      header("Location:uvod.php");
-    }
+  }else{
+    header("Location:uvod.php");
   }
 ?>
 <?php include 'hlavicka.php'?>
@@ -41,15 +22,10 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['redaktor'] == true)){
   <div class="row" id="hlavni">
       <div class="col-sm-offset-1 col-sm-10 col-xs-12">
       <div class="col-sm-12">
-        <h3 class="hlavni-nadpis">Registrace členů redakce do informačního systému</h2>
+        <h3 class="hlavni-nadpis">Změna základních informací</h2>
       </div>
       <?php include 'zpravy.php' ?>
-      <?php if(isset($_GET['id'])) {?>
-        <form class="form-horizontal" action="upravit_uzivatel_dotaz.php" method="POST">
-        <input type="hidden" value="<?php echo $_GET['id'] ?>" name="id" />
-      <?php } else {?>
-        <form class="form-horizontal" action="novy_uzivatel_dotaz.php" method="POST">
-      <?php } ?>
+      <form class="form-horizontal" action="upravit_udaje_dotaz.php" method="POST">
       <div class="col-sm-offset-2 col-sm-8">
       <div class="form-group">
         <label class="control-label col-sm-4 nepovinne" for="titpred">Titul před jménem:</label>
@@ -94,21 +70,8 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['redaktor'] == true)){
         </div>
       </div>
       <div class="form-group">
-        <label class="control-label col-sm-4">Role uživatele:</label>
-        <div class="col-sm-6">
-          <label class="checkbox-inline"><input type="checkbox" value="true" name="autor" <?php if (isset($_SESSION['user_autor'])) : echo "checked"; unset($_SESSION['user_autor']); endif; ?>>Autor</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <label class="checkbox-inline"><input type="checkbox" value="true" name="recenzent" <?php if (isset($_SESSION['user_recenzent'])) : echo "checked"; unset($_SESSION['user_recenzent']); endif; ?>>Recenzent</label><br />
-          <label class="checkbox-inline"><input type="checkbox" value="true" name="editor" <?php if (isset($_SESSION['user_editor'])) : echo "checked"; unset($_SESSION['user_editor']); endif; ?>>Editor</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <label class="checkbox-inline"><input type="checkbox" value="true" name="redaktor" <?php if (isset($_SESSION['user_redaktor'])) : echo "checked"; unset($_SESSION['user_redaktor']); endif; ?>>Redaktor</label>
-        </div>
-      </div>
-      <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
-          <?php if(isset($_GET['id'])) {?>
-            <input type="submit" class="btn btn-default" name="Upravit" value="Upravit"></input>
-          <?php } else { ?>
-            <input type="submit" class="btn btn-default" name="Přidat" value="Přidat"></input>
-          <?php } ?>
+          <input type="submit" class="btn btn-default" name="Upravit" value="Upravit údaje"></input>
         </div>
       </div>
       </div>
@@ -118,6 +81,6 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['redaktor'] == true)){
   <?php include 'paticka.php'?>
   <?php
 }else{
-  header("Location:index.php");
+  header("Location:uvod.php");
 }
   ?>
