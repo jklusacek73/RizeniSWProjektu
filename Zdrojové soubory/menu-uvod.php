@@ -17,6 +17,7 @@
               <li><a href="registrace.php">Registrace</a></li>
             <?php endif ?>
             <?php if(isset($_SESSION['user_is_logged'])) : ?>
+              <li><a href="casopis_prehled.php">Přehled časopisů</a></li>
               <?php if($_SESSION['redaktor'] == true) : ?>
                 <li><a href="seznam_uzivatelu.php">Seznam uživatelů</a></li>
               <?php endif ?>
