@@ -52,15 +52,16 @@ if(isset($_SESSION['user_is_logged'])){
         while ($casopis = $vysledek->fetch_array()){
           @$vysledek2 = $mysqli->query("SELECT COUNT(casopis) AS 'pocet' FROM clanek WHERE casopis = " . $casopis['id_casopisu'] . ";");
           $clanky = $vysledek2->fetch_array();
-          echo('<tr><td>'. $casopis['rok'] . '/' . $casopis['cislo'] .'</td>');
+          echo('<tr><td><a href="casopis_podrobnosti.php?id='. $casopis['id_casopisu'] . '" title="Podrobnosti o časopise">'. $casopis['rok'] . '/' . $casopis['cislo'] .'</a></td>');
           $zbyvajiciClanky = $casopis['kapacita'] - $clanky['pocet'];
           echo('<td>'. $zbyvajiciClanky .'</td>');
           echo('<td>'. strftime("%e.%m. %Y" ,strtotime($casopis['uzaverka'])) .'</td>');
           echo('<td>'. $casopis['temata'] .'</td>');
-          echo('<td>'. getCeleJmeno($casopis['titul_pred'], $casopis['jmeno'], $casopis['prijmeni'], $casopis['titul_za']) .'</td><td>');
+          echo('<td>'. getCeleJmeno($casopis['titul_pred'], $casopis['jmeno'], $casopis['prijmeni'], $casopis['titul_za']) .'</td><td class="text-center">');
           if(isset($_SESSION['redaktor']) && $casopis['uzaverka'] >= $datum){
-            echo "<a href='casopis_novy.php?id=$casopis[id_casopisu]' class='btn btn-warning btn-sm' title='Upravit časopis'><span class='glyphicon glyphicon-pencil'><span></a>";
+            echo "<a href='casopis_novy.php?id=$casopis[id_casopisu]' class='btn btn-warning btn-sm' title='Upravit časopis'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp;";
           }
+          echo "<a href='casopis_podrobnosti.php?id=$casopis[id_casopisu]' class='btn btn-primary btn-sm' title='Podrobnosti o časopise'><span class='glyphicon glyphicon-menu-right'></span></a>";
           echo('</td></tr>');
         }
       ?>
