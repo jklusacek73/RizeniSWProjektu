@@ -19,10 +19,10 @@ if(isset($_SESSION['user_is_logged'])){
     <div class="col-sm-12">
       <div class="col-sm-12">
           <h3 class="hlavni-nadpis">Podrobnosti o časopise <?php echo "$zaznam[rok]/$zaznam[cislo]" ?></h3>
-      
+
       <?php include 'zpravy.php' ?>
-      <?php echo "<a href='nahrat_clanek.php?id=$zaznam[id_casopisu]&rok=$zaznam[rok]&cislo=$zaznam[cislo]' class='btn btn-success btn-md'>Nahrát článek</a>" ?>
-  
+
+
 <table class="font table table-striped table-hover">
         <thead>
           <tr>
@@ -34,23 +34,28 @@ if(isset($_SESSION['user_is_logged'])){
           </tr>
        </thead>
       <tbody>
-      <?php 
-      @$vysledek = $mysqli->query("SELECT id_casopisu, rok, cislo, kapacita, uzaverka, temata, titul_pred, jmeno, prijmeni, titul_za FROM uzivatel JOIN casopis ON id_uzivatele = odpovida WHERE id_casopisu = $_GET[id];");      
-        while ($casopis = $vysledek->fetch_array()){
+      <?php
+      @$vysledek = $mysqli->query("SELECT id_casopisu, rok, cislo, kapacita, uzaverka, odpovida, temata, titul_pred, jmeno, prijmeni, titul_za FROM uzivatel JOIN casopis ON id_uzivatele = odpovida WHERE id_casopisu = $_GET[id];");
+        $casopis = $vysledek->fetch_array();
           @$vysledek2 = $mysqli->query("SELECT COUNT(casopis) AS 'pocet' FROM clanek WHERE casopis = " . $casopis['id_casopisu'] . ";");
           $clanky = $vysledek2->fetch_array();
           echo('<tr><td>' . $casopis['rok'] . '/' . $casopis['cislo'] .'</td>');
           $zbyvajiciClanky = $casopis['kapacita'] - $clanky['pocet'];
           echo('<td>'. $zbyvajiciClanky .'</td>');
-          echo('<td>'. $casopis['uzaverka'] .'</td>');
+          echo('<td>'. strftime("%e.%m. %Y" ,strtotime($casopis['uzaverka'])) .'</td>');
           echo('<td>'. $casopis['temata'] .'</td>');
           echo('<td>'. getCeleJmeno($casopis['titul_pred'], $casopis['jmeno'], $casopis['prijmeni'], $casopis['titul_za']) .'</td><td class="text-center"></tr>');
-        }
+
+      $datum = time('Y-m-d');
       ?>
     </tbody>
       </table>
-      <h4>Nahrané články v tomto čísle</h4>
-      
+      <?php if (($zbyvajiciClanky > 0) && (strtotime($casopis['uzaverka']) >= $datum)) {
+       echo "<div class='col-sm-12 text-right'><a href='nahrat_clanek.php?id=$zaznam[id_casopisu]&rok=$zaznam[rok]&cislo=$zaznam[cislo]' class='btn btn-success btn-md'>Nahrát článek</a></div>";
+     } ?>
+     <?php if($casopis['odpovida'] == $_SESSION['id_uzivatele']) { ?>
+      <h4>Nahrané články v tomto čísle časopisu</h4>
+
       <table class="font table table-striped table-hover">
         <thead>
           <tr>
@@ -62,33 +67,33 @@ if(isset($_SESSION['user_is_logged'])){
             <th></th>
           </tr>
        </thead>
-      <tbody>     
+      <tbody>
       <?php @$vysledek2 = $mysqli->query("SELECT id_clanku, nazev_clanku, datum_vlozeni, stav, datum_recenzniho_rizeni, odpovedny_uzivatel, titul_pred, jmeno, prijmeni, titul_za FROM uzivatel JOIN clanek ON id_uzivatele = odpovedny_uzivatel WHERE casopis = $_GET[id];");
       if (!$vysledek2){
         echo ("<h5>Aktuálně nejsou k dispozici žádné članky u tohoto čísla.</h5>");
       }else {
-            
+
         while ($clanek = $vysledek2->fetch_array()){
-          echo('<tr><td>'. $clanek['nazev_clanku'] .'</td>');
-          echo('<td>'. $clanek['datum_vlozeni'] .'</td>');
+          echo("<tr><td><a href='clanek_podrobnosti.php?id=$clanek[id_clanku]' title='Podrobnosti o článku'>" . $clanek['nazev_clanku'] ."</td>");
+          echo('<td>'. strftime("%e.%m. %Y" ,strtotime($clanek['datum_vlozeni'])) .'</td>');
           echo('<td>'. $clanek['stav'] .'</td>');
           //echo('<td>'. strftime("%e.%m. %Y" ,strtotime($clanek['datum_recenzniho_rizeni'])) .'</td>');
           echo('<td>'. getCeleJmeno($clanek['titul_pred'], $clanek['jmeno'], $clanek['prijmeni'], $clanek['titul_za']) .'</td><td class="text-center">');
           if(isset($_SESSION['editor'])){
-            echo "<a href='clanek_smazat.php?id=$clanek[id_clanku]' class='btn btn-warning btn-sm' title='Smazat článek'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;";
+            echo "<a href='clanek_smazat.php?id=$clanek[id_clanku]' class='btn btn-danger btn-sm' title='Smazat článek'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;";
           }
           echo "<a href='clanek_podrobnosti.php?id=$clanek[id_clanku]' class='btn btn-primary btn-sm' title='Podrobnosti o článku'><span class='glyphicon glyphicon-menu-right'></span></a>";
           echo('</td></tr>');
         }
+      }
       ?>
     </tbody>
       </table>
-      
- </div> 
- </div>    
+    <?php } ?>
+ </div>
+ </div>
 </div>
 </div>
-<?php } ?>
 <?php include 'paticka.php'?>
 <?php
 }else{

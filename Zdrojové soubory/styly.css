@@ -84,3 +84,6 @@ body{
 .tabulka>tbody>tr>td{
   vertical-align: middle;
 }
+[hidden] {
+  display: none !important;
+}

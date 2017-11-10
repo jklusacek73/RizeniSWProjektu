@@ -13,18 +13,18 @@
       <div class="col-sm-offset-2 col-sm-8">
       <div class="form-group">
         <label class="control-label col-sm-4" for="nazevclanku">Název článku:</label>
-        <div class="col-sm-6">
+        <div class="col-sm-8">
           <input type="text" name="nazevClanku"class="form-control" id="nazevclanku" value="<?php if(isset($_SESSION['nazev'])) : echo $_SESSION['nazev']; unset($_SESSION['nazev']); endif ?>" required>
         </div>
       </div>
         <div class="form-group">
         <label class="control-label col-sm-4" for="fileToUpload">Vybrat soubor:</label>
-        <div class="col-sm-6">
-         <input type="file" name="fileToUpload" id="fileToUpload" required>  (podporované formáty: <b>pdf, txt, doc, docx)</b>
+        <div class="col-sm-8">
+         <input type="file" name="fileToUpload" id="fileToUpload" required>  (podporovaný formát: <b>pdf</b>)
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-4 col-sm-10">
           <button type="submit" class="btn btn-default">Nahrát článek</button>
         </div>
       </div>

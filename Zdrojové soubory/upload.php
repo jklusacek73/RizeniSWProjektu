@@ -2,6 +2,7 @@
 session_start();
 if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
   require_once('connect.php');
+  require_once('function.php');
   @$vysledek = $mysqli->query("SELECT MAX(id_clanku) AS 'maximum' FROM clanek;");
   $zaznam = $vysledek->fetch_array();
   $maximum = $zaznam['maximum'];
@@ -46,7 +47,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
           </body>
           </html>
           ";
-        mail($_POST['email'],'Nový článek byl úspěšně přidán',$message,$headers);
+        mail($_SESSION['e-mail'],'Nový článek byl úspěšně přidán',$message,$headers);
         header("Location:clanek_autori.php?id=$maximum");
       }else {
         $_SESSION['typ'] = 'danger';
