@@ -1,5 +1,5 @@
 <?php
-  $mailFrom = 'jklusacek73@gmail.com';
+  $mailFrom = 'klusacek@student.vspj.cz';
 
   $mysqli = new mysqli("localhost", "", "", "");
   $mysqli->set_charset("utf8");

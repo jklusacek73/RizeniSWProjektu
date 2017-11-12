@@ -18,12 +18,12 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
       $_SESSION['typ'] = 'danger';
       $_SESSION['zprava'] = '<b>Formát souboru není podporován.</b>Nahrávejte pouze soubory typu PDF.';
       $_SESSION['nazev'] = $_POST['nazevClanku'];
-      header("Location:nahrat_clanek?id=$_POST[id]");
+      header("Location:nahrat_clanek.php");
   }else{
     $_SESSION['typ'] = 'danger';
     $_SESSION['zprava'] = '<b>Soubor nebyl úspěšně nahrán.</b>';
     $_SESSION['nazev'] = $_POST['nazevClanku'];
-    header("Location:nahrat_clanek?id=$_POST[id]");
+    header("Location:nahrat_clanek.php");
   }
   if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_dir . $nazev)){
       $datum = date('Y-m-d');
@@ -33,7 +33,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
         $_SESSION['zprava'] = 'Soubor byl úspěšně nahrán.<br /><b>Nyní můžete zadat případné další autory právě vloženého článku.</b>';
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= 'From: <' . $mailFrom . '>' . "\r\n";
+        $headers .= 'From: Logos Polytechnikos <' . $mailFrom . '>' . "\r\n";
         $message = "
           <html>
           <head>
@@ -41,7 +41,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
           </head>
           <body>
           <p>Dobrý den,</p>
-          <p>Váš článek <b>$zaznam[nazev_clanku]</b> byl úspěšně nahrán do informačního systému časopisu Logos Polytechnikos.</p>
+          <p>Váš článek <b>$_POST[nazevClanku]</b> byl úspěšně nahrán do informačního systému časopisu Logos Polytechnikos.</p>
           <p>Sledujte stav Vašeho nahraného článku přímo v informačním systému. O dalším postupu recenzního řízení Vás budeme informovat prostřednictvím e-mailu.</p>
           <p>Váš tým časopisu Logos Polytechnikos</p>
           </body>
@@ -49,20 +49,21 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
           ";
         mail($_SESSION['e-mail'],'Nový článek byl úspěšně přidán',$message,$headers);
         header("Location:clanek_autori.php?id=$maximum");
+        exit;
       }else {
         $_SESSION['typ'] = 'danger';
         $_SESSION['zprava'] = '<b>Soubor nebyl úspěšně nahrán.</b>';
         $_SESSION['nazev'] = $_POST['nazevClanku'];
-        header("Location:nahrat_clanek?id=$_POST[id]");
+        header("Location:nahrat_clanek.php");
       }
   } else {
     $_SESSION['typ'] = 'danger';
     $_SESSION['zprava'] = '<b>Soubor nebyl úspěšně nahrán.</b>';
     $_SESSION['nazev'] = $_POST['nazevClanku'];
-    header("Location:nahrat_clanek?id=$_POST[id]");
+    header("Location:nahrat_clanek.php");
   }
 }else{
-  header("Location:casopis_podrobnosti?id=$_POST[id]");
+  header("Location:casopis_podrobnosti.php?id=$_POST[id]");
 }
 ?>
 
