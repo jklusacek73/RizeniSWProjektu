@@ -39,7 +39,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['recenzent'])) {
         @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 1. recenze' WHERE id_clanku = $_POST[id];");
         $recenze .= 'První ';
       }else if($zaznam['pocet_recenzi'] == 2){
-        @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 2. recenze' WHERE id_clanku = $_POST[id];");
+        @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 2. recenze. Nyní můžete svůj článek aktualizovat.' WHERE id_clanku = $_POST[id];");
         $recenze .= 'Druhá ';
       }
       $mysqli->commit();
@@ -64,21 +64,37 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['recenzent'])) {
           </html>
           ";
         mail($_SESSION['e-mail'],'Recenze byla úspěšně nahrána',$message1,$headers);
-        $message2 = "
-          <html>
-          <head>
-            <title>Recenze k Vašemu článku </title>
-          </head>
-          <body>
-          <p>Dobrý den,</p>
-          <p>$recenze recence k Vašemu článku <b>$clanek[nazev_clanku]</b> byla úspěšně nahrána do informačního systému časopisu Logos Polytechnikos.</p>";
-          if($zaznam['pocet_recenzi'] == 2){
-            $message2 .= "<p>Prosím zkontrolujte, zda máte článek aktualizovat.</p>";
-          }
-        $message2 .= "<p>Váš tým časopisu Logos Polytechnikos</p>
-          </body>
-          </html>";
-        mail($clanek['e_mail'],'Recenze k Vašemu článku',$message2,$headers1);
+        if($zaznam['pocet_recenzi'] == 1){
+          $message2 = "
+            <html>
+            <head>
+              <title>Recenze k Vašemu článku </title>
+            </head>
+            <body>
+            <p>Dobrý den,</p>
+            <p>První recence k Vašemu článku <b>$clanek[nazev_clanku]</b> byla úspěšně nahrána do informačního systému časopisu Logos Polytechnikos.</p>
+            <p>Váš tým časopisu Logos Polytechnikos</p>
+            </body>
+            </html>
+            ";
+          mail($clanek['e_mail'],'První recenze k Vašemu článku',$message2,$headers);
+        }
+        if($zaznam['pocet_recenzi'] == 2){
+          $message3 = "
+            <html>
+            <head>
+              <title>Recenze k Vašemu článku </title>
+            </head>
+            <body>
+            <p>Dobrý den,</p>
+            <p>Druhá recence k Vašemu článku <b>$clanek[nazev_clanku]</b> byla úspěšně nahrána do informačního systému časopisu Logos Polytechnikos.</p>
+            <p>Prosíme zkontrolujte si v informačním systému zda a jak máte aktualizovat Váš článek.</p>
+            <p>Váš tým časopisu Logos Polytechnikos</p>
+            </body>
+            </html>
+            ";
+            mail($clanek['e_mail'],'Druhá recenze k Vašemu článku',$message3,$headers);
+        }
         header("Location:clanek_podrobnosti.php?id=$_POST[id]");
         exit;
       }else {

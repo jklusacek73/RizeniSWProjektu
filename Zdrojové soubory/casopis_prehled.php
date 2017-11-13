@@ -34,7 +34,9 @@ if(isset($_SESSION['user_is_logged'])){
       }else {
       ?>
       <div class="col-sm-12 text-right">
+        <?php if(isset($_SESSION['redaktor'])) {?>
         <a href="casopis_novy.php" class="btn btn-success">Vytvořit nové číslo časopisu</a>
+      <?php }?>
       </div>
       <table class="font table table-striped table-hover">
         <thead>

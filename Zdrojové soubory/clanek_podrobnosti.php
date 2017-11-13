@@ -17,7 +17,7 @@ if(isset($_SESSION['user_is_logged'])){
     header("Location:uvod.php");
     exit;
   }
-if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) || ($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele'])) {
+if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) || ($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) || $_SESSION['recenzent']) {
 ?>
 <?php include 'hlavicka.php'?>
   <?php include 'menu-uvod.php'?>
@@ -68,6 +68,12 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
             <th>Datum vložení článku:<th>
             <td  colspan="2"> <?php echo strftime("%e.%m. %Y" ,strtotime($zaznam['datum_vlozeni'])) ?> </td>
           </tr>
+          <?php if($zaznam['datum_aktualizace'] !== null) { ?>
+          <tr>
+            <th>Datum aktualizace článku před vydáním:<th>
+            <td colspan="2"><?php echo strftime("%e.%m. %Y" ,strtotime($zaznam['datum_aktualizace'])) ?> &nbsp; <?php echo "<a href='" . $zaznam['nazev_aktualizovaneho_souboru'] . "' download class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-download-alt'></span> Stáhnout aktualizovaný článek</a>&nbsp;&nbsp;<a href='" . $zaznam['nazev_aktualizovaneho_souboru'] . "' target='_blank' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-search'></span> Otevřít aktualizovaný článek</a>" ?></td>
+          </tr>
+        <?php } ?>
           <tr>
             <th>Stav:<th>
             <td colspan="2"><b><?php echo $zaznam['stav'] ?></b></td>
@@ -78,12 +84,6 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
             <td colspan="2"><?php echo strftime("%e.%m. %Y" ,strtotime($zaznam['datum_recenzniho_rizeni'])) ?> </td>
           </tr>
         <?php } ?>
-        <?php if($zaznam['datum_aktualizace'] !== null) { ?>
-        <tr>
-          <th>Datum aktualizace článku:<th>
-          <td colspan="2"><?php echo strftime("%e.%m. %Y" ,strtotime($zaznam['datum_aktualizace'])) ?> </td>
-        </tr>
-      <?php } ?>
       <?php
       $cislo == 0;
       @$vysledek = $mysqli->query("SELECT * FROM recenze NATURAL JOIN uzivatel WHERE id_clanku = $zaznam[id_clanku];");
@@ -106,19 +106,19 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
         <?php if($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) > strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) { ?>
           &nbsp;<a href="<?php echo "clanek_autori.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Přidat dalšího autora článku</a>
         <?php } ?>
-        <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) > strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) || $cislo == 2) { ?>
+        <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) >= strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) && $cislo == 2) { ?>
           &nbsp;<a href="<?php echo "clanek_smazat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-danger">Smazat článek</a>
         <?php } ?>
-        <?php if($_SESSION['recenzent'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) < strtotime(date('Y-m-d')))) && ($cislo < 2) && (($zaznam['datum_recenzniho_rizeni'] !== null) || ($zaznam['datum_recenzniho_rizeni'] !== ""))) { ?>
+        <?php if($_SESSION['recenzent'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) <= strtotime(date('Y-m-d')))) && ($cislo < 2) && (($zaznam['datum_recenzniho_rizeni'] !== null) || ($zaznam['datum_recenzniho_rizeni'] !== ""))) { ?>
           &nbsp;<a href="<?php echo "recenze_nahrat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-primary">Nahrát recenzi</a>
         <?php } ?>
-        <?php if(($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) && ($cislo == 2)) { ?>
+        <?php if(($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) && ($cislo == 2) && ($zaznam['datum_aktualizace'] == null)) { ?>
           &nbsp;<a href="<?php echo "clanek_aktualizovat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Aktualizovat článek</a>
         <?php } ?>
         <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) && ($cislo == 2)) { ?>
           &nbsp;<a href="<?php echo "clanek_vydat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Poslat článek k vydání</a>
         <?php } ?>
-        <?php if($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) { ?>
+        <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) && $cislo == 0) { ?>
           <br /><br /><form class="form-inline" method="post" action="datum_recenzniho_rizeni.php">
             <div class="form-group">
               <label for="email"><?php if(($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == "")) : echo "Vložit "; else: echo "Upravit "; endif ?>datum zahájení recenzního řízení:</label>

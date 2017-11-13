@@ -16,7 +16,7 @@
      $data = $vysledek2->fetch_array();
      $cislo = $data['max'];
      if($cislo == null){
-       $id = 1;
+       $cislo = 1;
      }else{
        $cislo++;
      }

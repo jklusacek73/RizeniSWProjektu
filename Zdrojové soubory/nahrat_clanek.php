@@ -14,7 +14,7 @@
       <div class="form-group">
         <label class="control-label col-sm-4" for="nazevclanku">Název článku:</label>
         <div class="col-sm-8">
-          <input type="text" name="nazevClanku"class="form-control" id="nazevclanku" value="<?php if(isset($_SESSION['nazev'])) : echo $_SESSION['nazev']; unset($_SESSION['nazev']); endif ?>" required>
+          <input type="text" placeholder="Zadávejte název pečlivě. Název již nejde měnit." name="nazevClanku"class="form-control" id="nazevclanku" value="<?php if(isset($_SESSION['nazev'])) : echo $_SESSION['nazev']; unset($_SESSION['nazev']); endif ?>" required>
         </div>
       </div>
         <div class="form-group">
