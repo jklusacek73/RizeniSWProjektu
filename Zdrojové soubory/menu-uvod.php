@@ -18,6 +18,7 @@
             <?php endif ?>
             <?php if(isset($_SESSION['user_is_logged'])) : ?>
               <li><a href="casopis_prehled.php">Přehled časopisů</a></li>
+              <li><a href="kontaktni_formular.php">Kontaktní formulář</a></li>
               <?php if($_SESSION['redaktor'] == true) : ?>
                 <li><a href="seznam_uzivatelu.php">Seznam uživatelů</a></li>
               <?php endif ?>
