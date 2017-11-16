@@ -35,10 +35,20 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['recenzent'])) {
       $zaznam = $vysledek2->fetch_array();
       $vysledek3 = false;
       $recenze = '';
+      @$vysledekH1 = $mysqli->query("SELECT MAX(id) AS 'maximum' FROM historieClanek;");
+      $zaznam2 = $vysledekH1->fetch_array();
+      $id = $zaznam2['maximum'];
+      if( $id == null){
+        $id = 1;
+      }else{
+        $id++;
+      }
       if($zaznam['pocet_recenzi'] == 1){
+        @$vysledekH2 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 3, '$datum');");
         @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 1. recenze' WHERE id_clanku = $_POST[id];");
         $recenze .= 'První ';
       }else if($zaznam['pocet_recenzi'] == 2){
+        @$vysledekH2  = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 4, '$datum');");
         @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 2. recenze. Nyní můžete svůj článek aktualizovat.' WHERE id_clanku = $_POST[id];");
         $recenze .= 'Druhá ';
       }

@@ -26,9 +26,18 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])){
     header("Location:nahrat_clanek.php");
   }
   if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_dir . $nazev)){
-      $datum = date('Y-m-d');
-      @$vysledek = $mysqli->query("INSERT INTO clanek(id_clanku, nazev_clanku, nazev_souboru, datum_vlozeni, stav, odpovedny_uzivatel, casopis) values($maximum , '$_POST[nazevClanku]', '" . $target_dir . $nazev . "', '$datum', 'Vloženo', $_SESSION[id_uzivatele], $_POST[id]);");
-      if($vysledek){
+    $datum = date('Y-m-d');
+    @$vysledek = $mysqli->query("INSERT INTO clanek (id_clanku, nazev_clanku, nazev_souboru, datum_vlozeni, stav, odpovedny_uzivatel, casopis) values ($maximum , '$_POST[nazevClanku]', '" . $target_dir . $nazev . "', '$datum', 'Vloženo', $_SESSION[id_uzivatele], $_POST[id]);");
+    @$vysledek2 = $mysqli->query("SELECT MAX(id) AS 'maximum' FROM historieClanek;");
+    $zaznam2 = $vysledek2->fetch_array();
+    $id = $zaznam2['maximum'];
+    if( $id == null){
+      $id = 1;
+    }else{
+      $id++;
+    }
+    @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $maximum, 1, '$datum');");
+    if($vysledek){
         $_SESSION['typ'] = 'success';
         $_SESSION['zprava'] = 'Soubor byl úspěšně nahrán.<br /><b>Nyní můžete zadat případné další autory právě vloženého článku.</b>';
         $headers = "MIME-Version: 1.0" . "\r\n";

@@ -8,6 +8,15 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['editor'] == true)){
    $timestamp = strtotime($_POST['datum']);
    $datum = date('Y-m-d', $timestamp);
    @$vysledek = $mysqli->query("UPDATE clanek SET datum_recenzniho_rizeni = '$datum', stav = 'Stanoveno datum zahájení recenzního řízení' WHERE id_clanku = $_POST[clanek];");
+   @$vysledek2 = $mysqli->query("SELECT MAX(id) AS 'maximum' FROM historieClanek;");
+   $zaznam2 = $vysledek2->fetch_array();
+   $id = $zaznam2['maximum'];
+   if( $id == null){
+     $id = 1;
+   }else{
+     $id++;
+   }
+   @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[clanek], 2, '$datum');");
    $_SESSION['typ'] = "success";
    $_SESSION['zprava'] =  "Datum zahájení recenzního řízení se podařilo uložit.";
    header("Location:clanek_podrobnosti.php?id=$_POST[clanek]");

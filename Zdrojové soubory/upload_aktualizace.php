@@ -14,6 +14,15 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])) {
   if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_dir . $nazev)){
       $datum = date('Y-m-d');
       @$vysledek = $mysqli->query("UPDATE clanek SET nazev_aktualizovaneho_souboru = '" . $target_dir . $nazev ."', datum_aktualizace = '$datum', stav = 'Byla nahrána aktualizace článku' WHERE id_clanku = $_POST[id];");
+      @$vysledek2 = $mysqli->query("SELECT MAX(id) AS 'maximum' FROM historieClanek;");
+      $zaznam2 = $vysledek2->fetch_array();
+      $id = $zaznam2['maximum'];
+      if( $id == null){
+        $id = 1;
+      }else{
+        $id++;
+      }
+      @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 5, '$datum');");
       if($vysledek){
         $_SESSION['typ'] = 'success';
         $_SESSION['zprava'] = 'Článek byl úspěšně aktualizován.';
