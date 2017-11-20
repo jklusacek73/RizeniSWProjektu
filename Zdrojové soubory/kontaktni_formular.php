@@ -27,7 +27,9 @@ if(isset($_SESSION['user_is_logged'])){
         </div>
       </div>
       </div>
-      <?php 
+      
+      <?php
+      if(isset($_POST['Odeslat'])){ 
        $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= 'From: <' . $_SESSION['e-mail'] . '>' . "\r\n";
@@ -43,18 +45,22 @@ if(isset($_SESSION['user_is_logged'])){
           </body>
           </html>
           ";
-        mail($mailfrom,'Připomínky k časopisu',$message,$headers);
+        mail($mailFrom,'Připomínky k časopisu',$message,$headers);
+        $_SESSION['typ'] = "success";
+        $_SESSION['zprava'] = "Vaše připomínka byla úspěšně odeslána.";
+        header("Location:uvod.php");
+        }
        // if(mail){
-        //$_SESSION['typ'] = "success";
-        //$_SESSION['zprava'] = "Vaše připomínka byla úspěšně odeslána.";
+        
         //}else{
         //$_SESSION['typ'] = "danger";
         //$_SESSION['zprava'] = "Vaše připomínka nebyla úspěšně odeslána.";
         //}
-        //header("Location:kontaktni_formular.php");
+        
   ?>
       </form>
       
+    </div>
     </div>
     </div>
   <?php include 'paticka.php'?>
