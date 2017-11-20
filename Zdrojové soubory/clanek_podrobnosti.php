@@ -17,7 +17,7 @@ if(isset($_SESSION['user_is_logged'])){
     header("Location:uvod.php");
     exit;
   }
-if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) || ($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) || $_SESSION['recenzent']) {
+if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) || ($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) || ($_SESSION['recenzent'] == true)) {
 ?>
 <?php include 'hlavicka.php'?>
   <?php include 'menu-uvod.php'?>
@@ -109,9 +109,11 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
         <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) >= strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) && ($cislo == 2) && ($zaznam['stav'] !== "Článek bude vydán")) { ?>
           &nbsp;<a href="<?php echo "clanek_smazat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-danger">Smazat článek</a>
         <?php } ?>
-        <?php if((isset($_SESSION['recenzent'])) && ((strtotime($zaznam['datum_recenzniho_rizeni']) <= strtotime(date('Y-m-d')))) && ($cislo < 2) && (($zaznam['datum_recenzniho_rizeni'] !== null) || ($zaznam['datum_recenzniho_rizeni'] !== ""))) { ?>
+        <?php if($_SESSION['recenzent'] == true) {
+            if(((strtotime($zaznam['datum_recenzniho_rizeni']) <= strtotime(date('Y-m-d')))) && ($cislo < 2) && (($zaznam['datum_recenzniho_rizeni'] !== null) || ($zaznam['datum_recenzniho_rizeni'] !== ""))) { ?>
           &nbsp;<a href="<?php echo "recenze_nahrat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-primary">Nahrát recenzi</a>
-        <?php } ?>
+        <?php }
+      } ?>
         <?php if(($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) && ($cislo == 2) && ($zaznam['datum_aktualizace'] == null)) { ?>
           &nbsp;<a href="<?php echo "clanek_aktualizovat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Aktualizovat článek</a>
         <?php } ?>
@@ -131,7 +133,7 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
       </div>
     </div>
     <div class="col-sm-12">
-      <h4>Předchozí stavy článku</h4>
+      <br /><h4>Historie tohoto článku</h4>
       <?php
       $vysledek = $mysqli->query("SELECT * FROM historieClanek NATURAL JOIN stavy WHERE id_clanku = $zaznam[id_clanku] ORDER BY id;")
       ?>

@@ -11,9 +11,10 @@
     $zadaneHeslo = hash('sha512', $_POST['pwd']);
     if($zadaneHeslo == $zaznam['heslo']){
       $_SESSION["user_is_logged"] = true;
-      @$vysledek2 = $mysqli->query("SELECT id_role, nazev FROM role NATURAL JOIN opravneni WHERE id_uzivatele = '$zaznam[id_uzivatele]' ORDER BY id_role;");
+      @$vysledek2 = $mysqli->query("SELECT id_role, nazev FROM role NATURAL JOIN opravneni WHERE id_uzivatele = $zaznam[id_uzivatele] ORDER BY id_role;");
       while ($role = $vysledek2->fetch_array()) {
-          switch($role['id_role']){
+          $cislo = $role['id_role'];
+          switch($cislo){
             case 1:
               $_SESSION['autor'] = true;
               break;

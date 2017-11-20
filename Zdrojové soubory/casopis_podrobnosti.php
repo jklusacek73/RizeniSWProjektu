@@ -20,7 +20,7 @@ if(isset($_SESSION['user_is_logged'])){
       <div class="col-sm-12">
           <h3 class="hlavni-nadpis">Podrobnosti o časopise <?php echo "$zaznam[rok]/$zaznam[cislo]" ?></h3>
 
-      <?php include 'zpravy.php' ?>
+      <?php include 'zpravy.php'?>
 
 
 <table class="font table table-striped table-hover">
@@ -53,7 +53,6 @@ if(isset($_SESSION['user_is_logged'])){
       <?php if (($zbyvajiciClanky > 0) && (strtotime($casopis['uzaverka']) >= $datum) && ($_SESSION['autor'])) {
        echo "<div class='col-sm-12 text-right'><a href='nahrat_clanek.php?id=$zaznam[id_casopisu]&rok=$zaznam[rok]&cislo=$zaznam[cislo]' class='btn btn-success btn-md'>Nahrát článek</a></div>";
      } ?>
-     <?php if(($casopis['odpovida'] == $_SESSION['id_uzivatele']) || $_SESSION['recenzent'] = true) { ?>
       <h4>Nahrané články v tomto čísle časopisu</h4>
 
       <table class="font table table-striped table-hover">
@@ -89,7 +88,6 @@ if(isset($_SESSION['user_is_logged'])){
       ?>
     </tbody>
       </table>
-    <?php } ?>
  </div>
  </div>
 </div>

@@ -11,7 +11,7 @@ if(isset($_SESSION['user_is_logged'])){
   <div class="col-sm-offset-1 col-sm-10 col-xs-12">
     <br />
     <div class="col-sm-12">
-      <?php include 'zpravy.php' ?>
+      <?php include 'zpravy.php'?>
     </div>
     <div class="col-sm-12">
       <h4 class="hlavni-nadpis">Příští čísla časopisu</h4>
