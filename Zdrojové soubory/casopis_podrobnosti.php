@@ -78,7 +78,7 @@ if(isset($_SESSION['user_is_logged'])){
           echo('<td>'. $clanek['stav'] .'</td>');
           //echo('<td>'. strftime("%e.%m. %Y" ,strtotime($clanek['datum_recenzniho_rizeni'])) .'</td>');
           echo('<td>'. getCeleJmeno($clanek['titul_pred'], $clanek['jmeno'], $clanek['prijmeni'], $clanek['titul_za']) .'</td><td class="text-center">');
-          if(isset($_SESSION['editor']) && ($zaznam['odpovida'] == $_SESSION['id_uzivatele'])){
+          if(isset($_SESSION['editor']) && ($zaznam['odpovida'] == $_SESSION['id_uzivatele']) && ($clanek['stav'] !== "Článek bude vydán")){
             echo "<a href='clanek_smazat.php?id=$clanek[id_clanku]' class='btn btn-danger btn-sm' title='Smazat článek'><span class='glyphicon glyphicon-remove'></span></a>&nbsp;";
           }
           echo "<a href='clanek_podrobnosti.php?id=$clanek[id_clanku]' class='btn btn-primary btn-sm' title='Podrobnosti o článku'><span class='glyphicon glyphicon-menu-right'></span></a>";

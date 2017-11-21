@@ -106,7 +106,7 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
         <?php if($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) > strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) { ?>
           &nbsp;<a href="<?php echo "clanek_autori.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Přidat dalšího autora článku</a>
         <?php } ?>
-        <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele'] && ((strtotime($zaznam['datum_recenzniho_rizeni']) >= strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) && ($cislo == 2) && ($zaznam['stav'] !== "Článek bude vydán")) { ?>
+        <?php if(($_SESSION['editor']) && ($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele'] /*&& ((strtotime($zaznam['datum_recenzniho_rizeni']) >= strtotime(date('Y-m-d'))) || ($zaznam['datum_recenzniho_rizeni'] == null) || ($zaznam['datum_recenzniho_rizeni'] == ""))) && ($cislo == 2*/) && ($zaznam['stav'] !== "Článek bude vydán")) { ?>
           &nbsp;<a href="<?php echo "clanek_smazat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-danger">Smazat článek</a>
         <?php } ?>
         <?php if($_SESSION['recenzent'] == true) {
