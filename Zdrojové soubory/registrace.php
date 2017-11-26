@@ -5,6 +5,11 @@ if(!isset($_SESSION['user_is_logged'])){
 <?php include 'hlavicka.php'?>
     <?php include 'menu-uvod.php'?>
   <?php include 'hlavni-foto.php'?>
+    <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
   <div class="row" id="hlavni">
       <div class="col-sm-offset-1 col-sm-10 col-xs-12">
       <div class="col-sm-12">
@@ -17,7 +22,7 @@ if(!isset($_SESSION['user_is_logged'])){
         <label class="control-label col-sm-4 nepovinne" for="titpred">Titul před jménem:</label>
         <div class="col-sm-6">
           <input type="text" class="form-control" id="Titpred" name="titpred" value="<?php if (isset($_SESSION['titpred'])) : echo $_SESSION['titpred']; unset($_SESSION['titpred']); endif; ?>" >
-        </div>
+        </div>     
       </div>
         <div class="form-group">
         <label class="control-label col-sm-4" for="jmeno">Jméno:</label>
@@ -48,6 +53,7 @@ if(!isset($_SESSION['user_is_logged'])){
         <div class="col-sm-6">
           <input type="password" class="form-control" id="Pswd1" name="pswd1" required />
         </div>
+        <a href="#" data-toggle="tooltip" title="Minimálně 10 znaků."><span class=" glyphicon glyphicon-question-sign napoveda"></span></a>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-4" for="pswd2">Opakujte heslo:</label>
@@ -66,6 +72,7 @@ if(!isset($_SESSION['user_is_logged'])){
         <div class="col-sm-6">
           <input type="text" class="form-control" id="Blur" name="blur" value="<?php if (isset($_SESSION['blur'])) : echo $_SESSION['blur']; unset($_SESSION['blur']); endif; ?>">
         </div>
+        <a href="#" data-toggle="tooltip" title="Např. Katedra technických studií."><span class=" glyphicon glyphicon-question-sign napoveda"></span></a>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">

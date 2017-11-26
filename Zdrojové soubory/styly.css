@@ -87,3 +87,8 @@ body{
 [hidden] {
   display: none !important;
 }
+.napoveda{
+margin-top: 5px;
+font-size: 1.3em;
+color: #f9a514;
+}

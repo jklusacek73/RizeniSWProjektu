@@ -16,9 +16,15 @@ if(isset($_SESSION['user_is_logged'])){
     header("Location:uvod.php");
   }
 ?>
+
 <?php include 'hlavicka.php'?>
     <?php include 'menu-uvod.php'?>
   <?php include 'hlavni-foto.php'?>
+      <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
   <div class="row" id="hlavni">
       <div class="col-sm-offset-1 col-sm-10 col-xs-12">
       <div class="col-sm-12">
@@ -68,6 +74,7 @@ if(isset($_SESSION['user_is_logged'])){
         <div class="col-sm-6">
           <input type="text" class="form-control" id="Blur" name="blur" value="<?php if (isset($_SESSION['user_blur'])) : echo $_SESSION['user_blur']; unset($_SESSION['user_blur']); endif; ?>">
         </div>
+        <a href="#" data-toggle="tooltip" title="Např. Katedra technických studií."><span class=" glyphicon glyphicon-question-sign napoveda"></span></a>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
