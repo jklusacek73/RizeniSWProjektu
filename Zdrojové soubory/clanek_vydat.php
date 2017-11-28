@@ -18,7 +18,7 @@ if(!isset($_GET['id'])){
     }else{
       $id++;
     }
-    @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $zaznam[id_clanku], 6, '$datum');");
+    @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $zaznam[id_clanku], 7, '$datum');");
     @$vysledek = $mysqli->query("UPDATE clanek SET stav = 'Článek bude vydán' WHERE id_clanku = $zaznam[id_clanku];");
     if($vysledek){
       $_SESSION['typ'] = 'success';
@@ -46,7 +46,7 @@ if(!isset($_GET['id'])){
         exit;
     }else{
       $_SESSION['typ'] = 'danger';
-      $_SESSION['zprava'] = '<b>Vydání článku se nezdařilo</b>';
+      $_SESSION['zprava'] = '<b>Převod do kategorie vydaných článků se nezdařil.</b>';
       header("Location:clanek_podrobnosti.php?id=$zaznam[id_clanku]");
       exit;
     }

@@ -22,7 +22,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])) {
       }else{
         $id++;
       }
-      @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 5, '$datum');");
+      @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 6, '$datum');");
       if($vysledek){
         $_SESSION['typ'] = 'success';
         $_SESSION['zprava'] = 'Článek byl úspěšně aktualizován.';

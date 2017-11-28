@@ -100,6 +100,12 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
           echo "Datum nahrání recenze: " . strftime("%e.%m. %Y" ,strtotime($recenze['datum'])) . " &nbsp;&nbsp;<a href='" . $recenze['nazev_souboru'] . "' download class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-download-alt'></span> Stáhnout recenzi</a>&nbsp;&nbsp;<a href='" . $recenze['nazev_souboru'] . "' target='_blank' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-search'></span> Otevřít recenzi</a>"; ?>
         </tr>
       <?php } ?>
+      <?php if((($zaznam['komentar'] !== null) && ($zaznam['komentar'] !== "")) && (($zaznam['odpovedny_uzivatel'] == $_SESSION['id_uzivatele']) || isset($_SESSION['recenzent']) || isset($_SESSION['redaktor'])|| isset($_SESSION['editor']))) { ?>
+        <tr>
+          <th>Komentář editora čísla časopisu</th><th></th>
+          <td colspan="2"><?php echo $zaznam['komentar'] ?></td>
+        </tr>
+      <?php } ?>
         </tbody>
       </table>
       <div class="col-sm-12">
@@ -114,11 +120,13 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
           &nbsp;<a href="<?php echo "recenze_nahrat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-primary">Nahrát recenzi</a>
         <?php }
       } ?>
-        <?php if(($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) && ($cislo == 2) && ($zaznam['datum_aktualizace'] == null)) { ?>
+        <?php if(($_SESSION['id_uzivatele'] == $zaznam['id_uzivatele']) && ($cislo == 2) && ($zaznam['datum_aktualizace'] == null) && ($zaznam['povolit_aktualizace'] == 1)) { ?>
           &nbsp;<a href="<?php echo "clanek_aktualizovat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Aktualizovat článek</a>
         <?php } ?>
-        <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) && ($cislo == 2) && ($zaznam['stav'] !== "Článek bude vydán")) { ?>
+        <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) && ($cislo == 2) && (($zaznam['komentar'] !== null) && ($zaznam['komentar'] !== "")) && ($zaznam['stav'] !== "Článek bude vydán")) { ?>
+          <?php if((($zaznam['povolit_aktualizace'] == 1) && ($zaznam['datum_aktualizace'] !== null)) || ($zaznam['povolit_aktualizace'] == 0)) {?>
           &nbsp;<a href="<?php echo "clanek_vydat.php?id=" . $zaznam['id_clanku'] ?>" class="btn btn-success">Poslat článek k vydání</a>
+            <?php } ?>
         <?php } ?>
         <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) && $cislo == 0) { ?>
           <br /><br /><form class="form-inline" method="post" action="datum_recenzniho_rizeni.php">
@@ -132,8 +140,37 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
         <?php } ?>
       </div>
     </div>
+    <?php if(($_SESSION['id_uzivatele'] == $zaznam2['id_uzivatele']) && ($cislo == 2) && ($zaznam['komentar'] == null)) { ?>
+      <div class="col-sm-12">
+        <br /><h4 class="hlavni-nadpis">Vložit komentář k článku</h4>
+        <br />
+        <form class="form-horizontal" method="post" action="komentar_editor.php">
+          <input type="hidden" name="clanek" value="<?php echo $zaznam['id_clanku'] ?>" />
+          <input type="hidden" name="user" value="<?php echo $zaznam2['id_uzivatele'] ?>" />
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="comment">Komentář editora čísla časopisu:</label>
+            <div class="col-sm-10">
+              <textarea style="overflow-x:hidden; owerflow-y:auto;" class="form-control" rows="5" id="comment" name="comment" required></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="aktualizace">Aktualizace článku</label>
+            <div class="col-sm-10">
+              <div class="checkbox">
+                <label><input type="checkbox" value="" name="aktualizace">Povolit aktualizaci článku</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <input class="btn btn-default" type="submit" value="Přidat komentář" name="pridatKomentar" />
+            </div>
+          </div>
+        </form>
+      </div>
+    <?php } ?>
     <div class="col-sm-12">
-      <br /><h4>Historie tohoto článku</h4>
+      <br /><h4 class="hlavni-nadpis">Historie tohoto článku</h4>
       <?php
       $vysledek = $mysqli->query("SELECT * FROM historieClanek NATURAL JOIN stavy WHERE id_clanku = $zaznam[id_clanku] ORDER BY id;")
       ?>
