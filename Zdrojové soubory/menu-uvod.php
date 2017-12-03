@@ -16,6 +16,7 @@
             <?php if(!isset($_SESSION['user_is_logged'])) : ?>
               <li><a href="registrace.php">Registrace</a></li>
               <li><a href="kontaktni_formular_neprihlasen.php">Kontaktní formulář</a></li>
+              <li><a href="prehled_vydanych_casopisu.php">Přehled vydaných časopisů</a></li>
             <?php endif ?>
             <?php if(isset($_SESSION['user_is_logged'])) : ?>
               <li><a href="casopis_prehled.php">Přehled časopisů</a></li>
