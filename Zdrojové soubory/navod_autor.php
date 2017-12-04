@@ -15,9 +15,10 @@ if(isset($_SESSION['user_is_logged'])){
       <?php include 'zpravy.php' ?>
       <div class="col-sm-10">
       <p>Po přihlášení do systému se vám zobrazí tento přehled. V prvním přehledu můžete vidět čísla časopisu, která ještě nebyla vydána. 
-      Ve druhém vidíte vaše nejnovější nahrané články do časopisu. A pomocí šipečky přejdeme na podrobnosti o čísle časopisu.
+      Ve druhém vidíte vaše nejnovější nahrané články do časopisu. A pomocí šipečky přejdeme na podrobnosti o čísle časopisu. 
+      Ve druhém přehledu po kliknutí na šipečku můžeme přejít na podrobnosti o námi nahraném článku.
       <br /><br />
-       <img src="obrazky/" id="hlavni-menu">
+       <img src="obrazky/uvod_autor.PNG" id="hlavni-menu">
        <br /><br />
       </p>
       <p>V podrobnostech o čísle časopisu můžeme vidět všechny informace o tomto čísle. 
