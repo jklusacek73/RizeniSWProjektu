@@ -1,6 +1,6 @@
 <?php
 session_start();
-if((isset($_SESSION['user_is_logged'])) && ($_SESSION['redaktor'] == true)){
+if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'] == true)){
  require_once('connect.php');
  if(isset($_GET['id'])){
    @$vysledek = $mysqli->query("SELECT id_clanku FROM autori WHERE id_autora = $_GET[id];");

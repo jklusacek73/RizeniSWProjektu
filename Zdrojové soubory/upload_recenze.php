@@ -49,7 +49,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['recenzent'])) {
         $recenze .= 'První ';
       }else if($zaznam['pocet_recenzi'] == 2){
         @$vysledekH2  = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 4, '$datum');");
-        @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 2. recenze. Nyní můžete svůj článek aktualizovat.' WHERE id_clanku = $_POST[id];");
+        @$vysledek3 = $mysqli->query("UPDATE clanek SET stav = 'Byla nahrána 2. recenze' WHERE id_clanku = $_POST[id];");
         $recenze .= 'Druhá ';
       }
       $mysqli->commit();
@@ -98,7 +98,7 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['recenzent'])) {
             <body>
             <p>Dobrý den,</p>
             <p>Druhá recence k Vašemu článku <b>$clanek[nazev_clanku]</b> byla úspěšně nahrána do informačního systému časopisu Logos Polytechnikos.</p>
-            <p>Prosíme zkontrolujte si v informačním systému zda a jak máte aktualizovat Váš článek.</p>
+            <p>Čekejte prosím na komentář editora čísla časopisu.</p>
             <p>Váš tým časopisu Logos Polytechnikos</p>
             </body>
             </html>

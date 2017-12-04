@@ -2,7 +2,7 @@
 session_start();
 if((isset($_SESSION['user_is_logged'])) && ($_SESSION['editor'] == true)){
  require_once('connect.php');
- @$vysledek = $mysqli->query("SELECT id_clanku, datum_recenzniho_rizeni FROM clanek WHERE id_clanku = $_POST[clanek];");
+ @$vysledek = $mysqli->query("SELECT * FROM clanek WHERE id_clanku = $_POST[clanek];");
  $zaznam = $vysledek->fetch_array();
  if($zaznam['id_clanku'] !== null){
    $timestamp = strtotime($_POST['datum']);
@@ -19,6 +19,25 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['editor'] == true)){
    @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[clanek], 2, '$datum');");
    $_SESSION['typ'] = "success";
    $_SESSION['zprava'] =  "Datum zahájení recenzního řízení se podařilo uložit.";
+   @$vysledekAutor = $mysqli->query("SELECT * FROM uzivatel WHERE id_uzivatele = $zaznam[odpovedny_uzivatel];");
+   $autor = $vysledekAutor->fetch_array();
+   $headers = "MIME-Version: 1.0" . "\r\n";
+   $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+   $headers .= 'From: Logos Polytechnikos <' . $mailFrom . '>' . "\r\n";
+   $message = "
+     <html>
+     <head>
+       <title>Datum zahájení recenzního řízení</title>
+     </head>
+     <body>
+     <p>Dobrý den,</p>
+     <p>K Vámi nahranému článku <b>$zaznam[nazev_clanku]</b> bylo přidáno datum zahájení recenzního řízení.</p>
+     <p>Sledujte stav Vašeho nahraného článku přímo v informačním systému.</p>
+     <p>Váš tým časopisu Logos Polytechnikos</p>
+     </body>
+     </html>
+     ";
+   mail($autor['e_mail'],'Datum zahájení recenzního řízení',$message,$headers);
    header("Location:clanek_podrobnosti.php?id=$_POST[clanek]");
  }else{
    $_SESSION['typ'] = "danger";

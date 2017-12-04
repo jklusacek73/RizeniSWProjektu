@@ -23,6 +23,10 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])) {
         $id++;
       }
       @$vysledek3 = $mysqli->query("INSERT INTO historieClanek VALUES ($id, $_POST[id], 6, '$datum');");
+      @$vysledek10 = $mysqli->query("SELECT * FROM clanek JOIN casopis ON clanek.casopis = casopis.id_casopisu WHERE id_clanku = $_POST[id]");
+      $casopis = $vysledek10->fetch_array();
+      @$vysledekEditor = $mysqli->query("SELECT * FROM uzivatel WHERE id_uzivatele = $casopis[odpovida]");
+      $editor = $vysledekEditor->fetch_array();
       if($vysledek){
         $_SESSION['typ'] = 'success';
         $_SESSION['zprava'] = 'Článek byl úspěšně aktualizován.';
@@ -36,13 +40,27 @@ if((isset($_SESSION['user_is_logged'])) && ($_SESSION['autor'])) {
           </head>
           <body>
           <p>Dobrý den,</p>
-          <p>Váše aktualizace článku <b>$_POST[nazev]</b> byla úspěšně nahrán do informačního systému časopisu Logos Polytechnikos.</p>
+          <p>Vaše aktualizace článku <b>$_POST[nazev]</b> byla úspěšně nahrán do informačního systému časopisu Logos Polytechnikos.</p>
           <p>Očekávejte další e-mail o tom, zda bude Váš článek skutečně vydán.
           <p>Váš tým časopisu Logos Polytechnikos</p>
           </body>
           </html>
           ";
         mail($_SESSION['e-mail'],'Článek byl úspěšně aktualizován',$message,$headers);
+        $message = "
+          <html>
+          <head>
+            <title>Aktualizace článku</title>
+          </head>
+          <body>
+          <p>Dobrý den,</p>
+          <p>byla nahrána aktualizace článku <b>$_POST[nazev]</b> do informačního systému časopisu Logos Polytechnikos.</p>
+          <p>Prosíme zkontrolujte tuto aktualizaci článku.</p>
+          <p>Váš tým časopisu Logos Polytechnikos</p>
+          </body>
+          </html>
+          ";
+        mail($editor['e_mail'],'Článek byl úspěšně aktualizován',$message,$headers);
         header("Location:clanek_podrobnosti.php?id=$_POST[id]");
         exit;
       }else {
