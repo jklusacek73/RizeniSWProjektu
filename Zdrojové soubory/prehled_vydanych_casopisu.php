@@ -10,7 +10,7 @@
       </div>
       <div class="col-sm-12">
       <div class="container">
-  <p>Zde si můžete prohlédnout nebo stáhnout již vydané časopisy.</p>   
+  <p>Zde si můžete stáhnout již vydané časopisy.</p>   
   
    <?php $sql = "SELECT * FROM casopis_vydany"; 
    $vysledek = mysqli_query($mysqli, $sql);
@@ -22,7 +22,7 @@
       <tr>
         <th>Časopis</th>
         <th>Témata časopisu</th>
-        <th>Stáhnout / Otevřít</th>       
+        <th>Stáhnout</th>       
       </tr>
     </thead>
  <!---------------------------------------------------------------->   
@@ -38,8 +38,7 @@
       <tr>
         <td><?php echo $row['rok'].' / Číslo '.$row['cislo']; ?></td>   
         <td><?php echo $row["temata"]; ?></td>
-        <td><a href='<?php echo $row["odkaz_k_souboru"];?>' download class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-download-alt'></span> Stáhnout časopis</a> &nbsp
-        <a href='<?php echo $row["odkaz_k_souboru"];?>' target='_blank' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-search'></span> Otevřít časopis</a></td>
+        <td><a href='<?php echo $row["odkaz_k_souboru"];?>' download class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-download-alt'></span> Stáhnout časopis</a> </td>
       </tr>
       
        <?php if ($row['id_casopisu'] % 4 == 0) {?>
