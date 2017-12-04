@@ -1,7 +1,18 @@
+<?php
+session_start();
+
+  require_once('connect.php');
+  require_once('function.php');
+?>
 <?php include 'hlavicka.php'?>
     <?php include 'menu-uvod.php'?>
   <?php include 'hlavni-foto.php'?>
-  <?php include 'connect.php'?>
+    
+     <?php $sql = "SELECT * FROM casopis_vydany"; 
+   $vysledek = mysqli_query($mysqli, $sql);
+   $rocnik = 2;
+   ?> 
+    
     
   <div class="row" id="hlavni">
       <div class="col-sm-offset-1 col-sm-10 col-xs-12">
@@ -11,11 +22,13 @@
       <div class="col-sm-12">
       <div class="container">
   <p>Zde si můžete stáhnout již vydané časopisy.</p>   
+   <div class="col-sm-12 text-right">
+        <?php if(isset($_SESSION['redaktor'])) {?>
+        <a href="casopis_novy_vydany.php" class="btn btn-success">Přidat číslo časopisu</a>
+      <?php }?> 
+      </div>     
+              
   
-   <?php $sql = "SELECT * FROM casopis_vydany"; 
-   $vysledek = mysqli_query($mysqli, $sql);
-   $rocnik = 2;
-   ?> 
            
   <table class="table table-striped table-hover">
     <thead>
@@ -64,5 +77,5 @@
 
 
   <?php
-
+  
   ?>
