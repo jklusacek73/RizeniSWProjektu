@@ -25,6 +25,17 @@
               <?php if($_SESSION['redaktor'] == true) : ?>
                 <li><a href="seznam_uzivatelu.php">Seznam uživatelů</a></li>
               <?php endif ?>
+              <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Návody <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                    <li><a href="datum_firefox.php">Podpora datumu</a></li>
+                    <?php if($_SESSION['autor'] == true) : ?>
+                    <li><a href="navod_autor.php">Návod na používání IS</a></li>
+                    <?php endif ?>
+                    <?php if($_SESSION['recenzent'] == true) : ?>
+                    <li><a href="navod_recenzent.php">Návod na používání IS</a></li>
+                    <?php endif ?>
+                  </ul></li>
             <?php endif ?>
           </ul>
           <ul class="nav navbar-nav navbar-right">
