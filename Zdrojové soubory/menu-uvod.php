@@ -21,17 +21,7 @@
             <?php if(isset($_SESSION['user_is_logged'])) : ?>
               <li><a href="casopis_prehled.php">Přehled časopisů</a></li>
               <li><a href="kontaktni_formular.php">Kontaktní formulář</a></li>
-              <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Návody <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                    <li><a href="datum_firefox.php">Podpora datumu</a></li>
-                    <?php if($_SESSION['autor'] == true) : ?>
-                    <li><a href="navod_autor.php">Návod na používání IS</a></li>
-                    <?php endif ?>
-                    <?php if($_SESSION['recenzent'] == true) : ?>
-                    <li><a href="navod_recenzent.php">Návod na používání IS</a></li>
-                    <?php endif ?>
-                  </ul></li>
+              <li><a href="prehled_vydanych_casopisu.php">Přehled vydaných časopisů</a></li>
               <?php if($_SESSION['redaktor'] == true) : ?>
                 <li><a href="seznam_uzivatelu.php">Seznam uživatelů</a></li>
               <?php endif ?>
