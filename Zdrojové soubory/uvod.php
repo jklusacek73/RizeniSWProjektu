@@ -42,7 +42,8 @@ if(isset($_SESSION['user_is_logged'])){
           echo('<td>'. $zbyvajiciClanky .'</td>');
           echo('<td>'. strftime("%e.%m. %Y" ,strtotime($casopis['uzaverka'])) .'</td>');
           echo('<td>'. $casopis['temata'] .'</td>');
-          echo('<td>'. getCeleJmeno($casopis['titul_pred'], $casopis['jmeno'], $casopis['prijmeni'], $casopis['titul_za']) .'</td></tr>');
+          echo('<td>'. getCeleJmeno($casopis['titul_pred'], $casopis['jmeno'], $casopis['prijmeni'], $casopis['titul_za']) .'</td>');
+          echo('<td><a class="btn btn-primary btn-sm" href="casopis_podrobnosti.php?id='. $casopis['id_casopisu'] . '"><span class="glyphicon glyphicon-menu-right"></span></a></td></tr>');
         }
       ?>
     </tbody>
@@ -74,6 +75,7 @@ if(isset($_SESSION['user_is_logged'])){
           echo('<td>'. strftime("%e.%m. %Y" ,strtotime($clanek['datum_vlozeni'])) .'</td>');
           echo('<td>'. $clanek['stav'] .'</td>');
           echo('<td>'. $clanek['rok'] . '/' . $clanek['cislo'] .'</td>');
+          echo('<td><a class="btn btn-primary btn-sm" href="clanek_podrobnosti.php?id='. $clanek['id_clanku'] . '"><span class="glyphicon glyphicon-menu-right"></span></a></td></tr>');
         }
       ?>
     </tbody>
@@ -87,7 +89,7 @@ if(isset($_SESSION['user_is_logged'])){
     <div class="col-sm-12">
       <h4 class="hlavni-nadpis">Moje nejnovější nahrané recenze</h4>
       <?php
-        @$vysledek = $mysqli->query("SELECT id_recenze, datum, nazev_clanku, stav, rok, cislo FROM recenze NATURAL JOIN clanek JOIN casopis ON casopis = id_casopisu WHERE id_uzivatele = " . $_SESSION['id_uzivatele'] . " ORDER BY datum DESC LIMIT 0, 5;");
+        @$vysledek = $mysqli->query("SELECT clanek.id_clanku, id_recenze, datum, nazev_clanku, stav, rok, cislo FROM recenze  JOIN clanek ON recenze.id_clanku = clanek.id_clanku JOIN casopis ON clanek.casopis = casopis.id_casopisu  WHERE recenze.id_uzivatele = " . $_SESSION['id_uzivatele'] ." ORDER BY datum DESC LIMIT 0, 5;");
         if (!$vysledek) {
           echo ("<h5>Ještě nemáte nahrané žádné recenze k článkům.</h5>");
         } else {
@@ -108,6 +110,7 @@ if(isset($_SESSION['user_is_logged'])){
           echo('<td>'. strftime("%e.%m. %Y" ,strtotime($recenze['datum'])) .'</td>');
           echo('<td>'. $recenze['stav'] .'</td>');
           echo('<td>'. $recenze['rok'] . '/' . $recenze['cislo'] .'</td>');
+          echo('<td><a class="btn btn-primary btn-sm" href="clanek_podrobnosti.php?id='. $recenze['id_clanku'] . '"><span class="glyphicon glyphicon-menu-right"></span></a></td></tr>');
         }
       ?>
     </tbody>
@@ -148,7 +151,7 @@ if(isset($_SESSION['user_is_logged'])){
               echo('<td>'. strftime("%e.%m. %Y" ,strtotime($casopis['uzaverka'])) .'</td>');
               echo('<td>'. $clanky['pocet'] .'</td>');
               echo('<td>'. $casopis['kapacita'] .'</td>');
-              echo('<td><a class="btn btn-primary btn-sm" href="prehled_clanku.php?id='. $casopis['id_casopisu'] . '">Přehled článků v časopise</a></td></tr>');
+              echo('<td><a class="btn btn-primary btn-sm" href="casopis_podrobnosti.php?id='. $casopis['id_casopisu'] . '">Přehled článků v časopise</a></td></tr>');
             }
            ?>
        </tbody>
