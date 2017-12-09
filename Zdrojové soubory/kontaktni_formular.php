@@ -13,6 +13,13 @@ if(isset($_SESSION['user_is_logged'])){
         <h3 class="hlavni-nadpis">Kontaktní formulář</h2>
       </div>
       <?php include 'zpravy.php' ?>
+      <div class="col-sm-12">
+      <div class="well well-sm">
+        Tento kontaktní formulář můžete použít pro reakci na určitý článek uveřejněný v časopise.<br />
+        Dále tento formulář používejte v případě že chcete spolupracovat s týmem časopisu Logos Polytechnikos nebo v případě jakýchkoliv dotazů.<br />
+        <b>Redakce se bude snažit na všechny podněty reagovat.</b>
+      </div>
+    </div>
       <form class="form-horizontal" action="" method="POST">
       <div class="col-sm-10">
       <div class="form-group">

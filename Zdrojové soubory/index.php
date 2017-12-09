@@ -11,8 +11,9 @@
         <h3 class="hlavni-nadpis">Přihlášení do informačního systému</h2>
       </div>
       <?php include 'zpravy.php' ?>
+    <div class="col-sm-offset-2 col-sm-8">
+      <br />
       <form class="form-horizontal" action="login.php" method="post">
-      <div class="col-sm-offset-2 col-sm-8">
         <div class="form-group">
         <label class="control-label col-sm-2" for="email">Email:</label>
         <div class="col-sm-8">
@@ -30,8 +31,23 @@
           <input class="btn btn-default" type="submit" value="Přihlásit" name="prihlasit" />
         </div>
       </div>
-      </div>
       </form>
+      <br />
+      </div>
+      <div class="col-sm-12">
+        <div class="well well-sm">
+        </p>Toto je první verze informačního systému pro časopis Logos Polytechnikos.</p>
+      </p>Do tohoto informačního systému se můžete přihlásit těmito účty (samozřejmě nebudou fungovat notifikace pomocí e-mailu): </p>
+          <ul>
+            <li><b>jirik.73@seznam.cz</b> jako redaktor a recenzent</li>
+            <li><b>klusacek@student.vspj.cz</b> jako editor čísla časopisu</li>
+            <li><b>jklusacek73@gmail.com</b> jako autor článku</li>
+            <li><b>rspklusacek@gmail.com</b> jako recenzent</li>
+          </ul>
+            <p>Všechny účty mají heslo: <b>0123456789</b> - toto heslo samozřejmě nejde použít pro vstup do emailových schránek. :-)</p>
+            <p>Samozřejmě si můžete vytvořit své účty jako autor přímo zde bez přihlášení nebo se přihlásit jako redaktor a založit všechny ostatní role</p>
+        </div>
+      </div>
     </div>
     </div>
   <?php include 'paticka.php'?>

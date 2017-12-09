@@ -2,6 +2,9 @@
 session_start();
 if((isset($_SESSION['user_is_logged'])) && ($_SESSION['editor'] == true) && ($_SESSION['id_uzivatele'] == $_POST['user'])){
  require_once('connect.php');
+ if(($_POST['comment'] == null) || ($_POST['comment'] == "")){
+   $_POST['comment'] = "Komentář nebyl vložen.";
+ }
  @$vysledekKomentar = $mysqli->query("UPDATE clanek SET komentar = '$_POST[comment]', stav = 'K článku byl přidán komentář editora' WHERE id_clanku = $_POST[clanek]");
  $vysledekAktualizace = false;
  if(isset($_POST['aktualizace'])){

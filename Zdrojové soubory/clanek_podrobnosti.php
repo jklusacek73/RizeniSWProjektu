@@ -150,7 +150,7 @@ if(($_SESSION['redaktor'] == true) || ($_SESSION['id_uzivatele'] == $zaznam['id_
           <div class="form-group">
             <label class="control-label col-sm-2" for="comment">Komentář editora čísla časopisu:</label>
             <div class="col-sm-10">
-              <textarea style="overflow-x:hidden; owerflow-y:auto;" class="form-control" rows="5" id="comment" name="comment" required></textarea>
+              <textarea style="overflow-x:hidden; owerflow-y:auto;" class="form-control" rows="5" id="comment" name="comment"></textarea>
             </div>
           </div>
           <div class="form-group">
