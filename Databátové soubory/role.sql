@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Ned 10. pro 2017, 15:31
+-- Vytvořeno: Ned 10. pro 2017, 17:19
 -- Verze serveru: 5.7.20
 -- Verze PHP: 7.1.12
 
@@ -32,6 +32,16 @@ CREATE TABLE `role` (
   `id_role` int(11) NOT NULL,
   `nazev` varchar(80) COLLATE utf8_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `role`
+--
+
+INSERT INTO `role` (`id_role`, `nazev`) VALUES
+(1, 'autor'),
+(2, 'redaktor'),
+(3, 'recenzent'),
+(4, 'editor');
 
 --
 -- Klíče pro exportované tabulky
