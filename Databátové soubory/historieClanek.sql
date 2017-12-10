@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Pát 27. říj 2017, 13:37
+-- Vytvořeno: Ned 10. pro 2017, 15:23
 -- Verze serveru: 5.7.20
--- Verze PHP: 7.1.11
+-- Verze PHP: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,35 +25,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `pise`
+-- Struktura tabulky `historieClanek`
 --
 
-CREATE TABLE `pise` (
+CREATE TABLE `historieClanek` (
+  `id` int(11) NOT NULL,
   `id_clanku` int(11) NOT NULL,
-  `id_autora` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+  `id_stavu` int(11) NOT NULL,
+  `datum` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci ROW_FORMAT=COMPACT;
 
 --
 -- Klíče pro exportované tabulky
 --
 
 --
--- Klíče pro tabulku `pise`
+-- Klíče pro tabulku `historieClanek`
 --
-ALTER TABLE `pise`
+ALTER TABLE `historieClanek`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_clanku` (`id_clanku`),
-  ADD KEY `id_autora` (`id_autora`);
+  ADD KEY `id_stavu` (`id_stavu`);
 
 --
 -- Omezení pro exportované tabulky
 --
 
 --
--- Omezení pro tabulku `pise`
+-- Omezení pro tabulku `historieClanek`
 --
-ALTER TABLE `pise`
-  ADD CONSTRAINT `pise_ibfk_1` FOREIGN KEY (`id_clanku`) REFERENCES `clanek` (`id_clanku`),
-  ADD CONSTRAINT `pise_ibfk_2` FOREIGN KEY (`id_autora`) REFERENCES `autori` (`id_autora`);
+ALTER TABLE `historieClanek`
+  ADD CONSTRAINT `historieClanek_ibfk_1` FOREIGN KEY (`id_clanku`) REFERENCES `clanek` (`id_clanku`),
+  ADD CONSTRAINT `historieClanek_ibfk_2` FOREIGN KEY (`id_stavu`) REFERENCES `stavy` (`id_stavu`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

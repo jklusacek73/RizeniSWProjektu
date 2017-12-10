@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Pát 27. říj 2017, 13:37
+-- Vytvořeno: Ned 10. pro 2017, 15:25
 -- Verze serveru: 5.7.20
--- Verze PHP: 7.1.11
+-- Verze PHP: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,6 +34,8 @@ CREATE TABLE `clanek` (
   `nazev_souboru` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `datum_vlozeni` date NOT NULL,
   `stav` varchar(100) COLLATE utf8_czech_ci NOT NULL,
+  `povolit_aktualizace` tinyint(1) DEFAULT NULL,
+  `komentar` text COLLATE utf8_czech_ci,
   `datum_recenzniho_rizeni` date DEFAULT NULL,
   `nazev_aktualizovaneho_souboru` varchar(100) COLLATE utf8_czech_ci DEFAULT NULL,
   `datum_aktualizace` date DEFAULT NULL,

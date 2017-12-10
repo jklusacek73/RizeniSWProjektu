@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.5
 -- https://www.phpmyadmin.net/
 --
--- Počítač: 127.0.0.1
--- Vytvořeno: Pon 30. říj 2017, 10:58
--- Verze serveru: 10.1.21-MariaDB
--- Verze PHP: 7.1.1
+-- Počítač: localhost
+-- Vytvořeno: Ned 10. pro 2017, 15:20
+-- Verze serveru: 5.7.20
+-- Verze PHP: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -39,13 +41,6 @@ CREATE TABLE `uzivatel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
--- Vypisuji data pro tabulku `uzivatel`
---
-
-INSERT INTO `uzivatel` (`id_uzivatele`, `titul_pred`, `jmeno`, `prijmeni`, `titul_za`, `e_mail`, `heslo`, `instituce`, `instituce_blizsi_urceni`) VALUES
-(1, '', 'Jiří', 'Klusáček', '', 'jirik.73@seznam.cz', '58a04acccf9ac1612c40d0050f323dfeff4e3c80a6e66e2df2f19b634192ada3b8a7348d978999071cc327a5e16c61ce8854bdd7b80f2d4f9364f81260038f35', 'Vysoká škola polytechnická Jihlava', '');
-
---
 -- Klíče pro exportované tabulky
 --
 
@@ -56,6 +51,7 @@ ALTER TABLE `uzivatel`
   ADD PRIMARY KEY (`id_uzivatele`),
   ADD UNIQUE KEY `id_uzivatele` (`id_uzivatele`),
   ADD UNIQUE KEY `e_mail` (`e_mail`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

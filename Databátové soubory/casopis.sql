@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Pát 27. říj 2017, 13:37
+-- Vytvořeno: Ned 10. pro 2017, 15:24
 -- Verze serveru: 5.7.20
--- Verze PHP: 7.1.11
+-- Verze PHP: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Ned 10. pro 2017, 15:25
+-- Vytvořeno: Ned 10. pro 2017, 15:24
 -- Verze serveru: 5.7.20
 -- Verze PHP: 7.1.12
 
@@ -25,15 +25,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `recenze`
+-- Struktura tabulky `casopis_vydany`
 --
 
-CREATE TABLE `recenze` (
-  `id_recenze` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `nazev_souboru` varchar(100) COLLATE utf8_czech_ci NOT NULL,
-  `id_uzivatele` int(11) NOT NULL,
-  `id_clanku` int(11) NOT NULL
+CREATE TABLE `casopis_vydany` (
+  `id_casopisu` int(11) NOT NULL,
+  `rok` year(4) NOT NULL,
+  `cislo` int(11) NOT NULL,
+  `temata` varchar(256) COLLATE utf8_czech_ci DEFAULT NULL,
+  `odkaz_k_souboru` varchar(256) COLLATE utf8_czech_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
@@ -41,24 +41,10 @@ CREATE TABLE `recenze` (
 --
 
 --
--- Klíče pro tabulku `recenze`
+-- Klíče pro tabulku `casopis_vydany`
 --
-ALTER TABLE `recenze`
-  ADD PRIMARY KEY (`id_recenze`),
-  ADD UNIQUE KEY `id_recenze` (`id_recenze`),
-  ADD KEY `id_uzivatele` (`id_uzivatele`),
-  ADD KEY `id_clanku` (`id_clanku`);
-
---
--- Omezení pro exportované tabulky
---
-
---
--- Omezení pro tabulku `recenze`
---
-ALTER TABLE `recenze`
-  ADD CONSTRAINT `recenze_ibfk_1` FOREIGN KEY (`id_uzivatele`) REFERENCES `uzivatel` (`id_uzivatele`),
-  ADD CONSTRAINT `recenze_ibfk_2` FOREIGN KEY (`id_clanku`) REFERENCES `clanek` (`id_clanku`);
+ALTER TABLE `casopis_vydany`
+  ADD PRIMARY KEY (`id_casopisu`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
