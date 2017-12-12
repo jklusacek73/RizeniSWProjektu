@@ -38,7 +38,7 @@ require_once('connect.php');
       <div class="form-group">
         <label class="control-label col-sm-4" for="fileToUpload">Soubor:</label>
         <div class="col-sm-6">
-         <input type="file" name="fileToUpload" id="fileToUpload" required> (podporovaný formát: <b>pdf</b>)
+         <input type="file" name="fileToUpload" id="fileToUpload" required> (podporovaný formát: <b>pdf pouze do 2MB</b>)
         </div>
       </div>
       <div class="form-group">

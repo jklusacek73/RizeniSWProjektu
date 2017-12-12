@@ -30,16 +30,16 @@
               <ul class="dropdown-menu">
                     <li><a href="datum_firefox.php">Podpora datumu</a></li>
                     <?php if($_SESSION['autor'] == true) : ?>
-                    <li><a href="soubory/navod_autor.pdf" target="_blank">Návod na používání IS</a></li>
+                    <li><a href="soubory/navod_autor.pdf" target="_blank">Návod na používání IS - autor</a></li>
                     <?php endif ?>
                     <?php if($_SESSION['recenzent'] == true) : ?>
-                    <li><a href="soubory/navod_recenzent.pdf" target="_blank">Návod na používání IS</a></li>
+                    <li><a href="soubory/navod_recenzent.pdf" target="_blank">Návod na používání IS - recenzent</a></li>
                     <?php endif ?>
                     <?php if($_SESSION['editor'] == true) : ?>
-                    <li><a href="soubory/navod_editor.pdf" target="_blank">Návod na používání IS</a></li>
+                    <li><a href="soubory/navod_editor.pdf" target="_blank">Návod na používání IS - editor</a></li>
                     <?php endif ?>
                     <?php if($_SESSION['redaktor'] == true) : ?>
-                    <li><a href="soubory/navod_redaktor.pdf" target="_blank">Návod na používání IS</a></li>
+                    <li><a href="soubory/navod_redaktor.pdf" target="_blank">Návod na používání IS - redaktor</a></li>
                     <?php endif ?>
                   </ul></li>
             <?php endif ?>
