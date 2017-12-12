@@ -14,6 +14,25 @@ if(isset($_SESSION['user_is_logged'])){
       <?php include 'zpravy.php'?>
     </div>
     <div class="col-sm-12">
+    
+           
+     <div class = "well well-sm">
+    Vítejte na webové stránce odborného časopisu Vysoké školy polytechnické Logos Polytechnikos.
+    
+    <br /><br />
+       <ul>
+       <li>Jako autor si můžete stáhnout šablonu pro psaní článku zde: <a href = "soubory/sablona_clanku.docx"> Šablona k napsání článku. </a></li>
+       <li>Recenzenti si mohou stáhnout šablonu pro recenzi článků zde: <a href = "soubory/sablona_recenze.docx"> Šablona pro recenzi. </a> </li>
+       </ul> 
+    <br />
+    Pokud si s nečím nevíte rady, v položce menu - návody - najde vše co potřebujete vědět.<br />
+    <br />
+    Když návody nebudou stačit nebo máte připomínky k časopisu, neváhejte použít kontaktní formulář.
+    </div>
+    
+    
+    
+    
       <h4 class="hlavni-nadpis">Příští čísla časopisu</h4>
       <?php
       $datum = date("Y-m-d");
